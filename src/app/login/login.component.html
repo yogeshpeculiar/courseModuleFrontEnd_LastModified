@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="content">
+  <h2>Login Form</h2>
+  
+  <form [formGroup]="loginForm">
+    <div>
+      <label for="uname"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uname" formControlName="userId"  required><br>
+  
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw"  formControlName="password" required><br>
+          
+      <button style="margin: 5px" (click)="onSubmit()">Login</button><b></b>
+    </div>
+  </form>
+    </div>
+  </div>
+  
+  

@@ -1,0 +1,20 @@
+<app-nav-bar></app-nav-bar>
+<br>
+<div class="container-fluid">
+    <div>
+        <h2 class="left">Courses</h2>
+        <div class="right">
+            <button class="btn btn-primary" style="margin-right:10px" (click)=back()>Back</button>
+        </div>
+    </div>
+    <hr>
+</div>
+<div class="container">
+    <div *ngFor="let video of listOfVideos">
+    <iframe width="400" height="300" [src]="video.url|videoPipe" frameborder="0"
+    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen></iframe><br /><br />
+<p><b>Name: {{video.name}}</b></p>
+    </div>
+</div>
+

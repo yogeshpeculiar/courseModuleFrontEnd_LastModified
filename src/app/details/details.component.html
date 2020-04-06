@@ -1,0 +1,98 @@
+<app-nav-bar></app-nav-bar>
+<br>
+<div class="container-fluid">
+    <div>
+        <h2 class="left">Courses</h2>
+        <div class="right">
+            <button class="btn btn-primary" style="margin-right:10px" (click)="navigatToUpdateComponent(id)">Edit</button>
+            <button class="btn btn-primary" style="margin-right:10px" (click)="navigatToCloneComponent(id)">Clone</button>
+            <button class="btn btn-primary" style="margin-right:10px" (click)="delete(id)">Delete</button>
+            <button class="btn btn-primary" style="margin-right:10px" (click)=back()>Back</button>
+        </div>
+    </div>
+    <hr>
+</div>
+
+    <div class="center">
+        <div class="alert alert-primary" style="text-align: center;">
+            <b>{{courseObject.name}}</b> - <b>{{courseObject.version}}</b>
+        </div>
+        <div *ngIf=courseObject.levelObj.name><b>level :</b> {{courseObject.levelObj.name}}
+        </div>
+        <div *ngIf=courseObject.categoryObj.name>
+            <b> Category : </b>{{courseObject.categoryObj.name}}
+        </div>
+        <div *ngIf=courseObject.slug>
+            <b> Slug: </b><a href="#">https://qa.revature.com/REV/course/{{courseObject.slug}}</a>
+        </div>
+        <div>
+        <ng-container *ngIf="courseObject.isLevelOverride== false;then override else nonoverride"></ng-container>
+        <ng-template #nonoverride><b>LevelOverride :</b> No</ng-template>
+        <ng-template #override><b>LevelOverride:</b> Yes</ng-template>
+        </div>
+        <div>
+            <label><b>Available for:</b></label>
+            <span *ngIf=courseObject.isPreSignUp>Presignup</span>&nbsp;
+            <span *ngIf=courseObject.isSlugLogin>Logged in via Slug</span>&nbsp;
+            <span *ngIf=courseObject.isDashboard>Dashboard</span>                    
+        </div>
+        <div>
+            <ng-container *ngIf="courseObject.isActive== false;then active else inactive"></ng-container>
+            <ng-template #active><b>Active :</b> No</ng-template>
+            <ng-template #inactive><b>Active :</b> Yes</ng-template>
+        </div>
+        <div *ngIf=courseObject.enrollmentActivityPoints>
+            <b>Enrollment Activity Points: </b>{{courseObject.enrollmentActivityPoints}}
+        </div>
+        <diV *ngIf=courseObject.completionActivityPoints>
+            <b>Completion Activity Points: </b>{{courseObject.completionActivityPoints}}
+        </diV>
+        <div *ngIf=courseObject.tag>
+            <b> Tags:</b> {{courseObject.tag}}
+        </div>
+        <div *ngIf=courseObject.mode>
+            <ng-container *ngIf="courseObject.mode==='p';then publish else draft"></ng-container>
+            <ng-template #publish><b>Mode:</b>Published</ng-template>
+            <ng-template #draft><b>Mode:</b>Draft</ng-template>
+        </div>
+        <div *ngIf=courseObject.createdBy>
+            <b>Created By:</b> {{courseObject.createdBy}}
+        </div>
+        <div *ngIf=courseObject.createdOn>
+            <b>Created On: </b>{{courseObject.createdOn|date}}
+        </div>
+        <div *ngIf=courseObject.modifiedBy>
+            <b>Modified By:</b> {{courseObject.modifiedBy}}
+        </div>
+        <div *ngIf=courseObject.modifiedOn>
+            <b>Modified On:</b> {{courseObject.modifiedOn|date}}
+        </div>
+
+<!-- card for disp documents -->
+<div *ngIf=courseObject.docObj>
+<div class="card text-white bg-info mb-3 " style="max-width: 18rem;">
+    <div class="card-header">Documents Attached</div>
+    <div class="card-body">
+        <div *ngFor="let doc of courseObject.docObj">
+      <p class="card-text"><u>{{doc.name}}</u></p>
+    </div>
+    </div>
+    </div>
+  </div>
+
+  <!-- card for disp videos -->
+  <div *ngIf=courseObject.courseSubscribedVideo>
+    <div class="card text-white bg-info mb-3 " style="max-width: 18rem;">
+        <div class="card-header">Videos Attached</div>
+        <div class="card-body">
+            <div *ngFor="let video of listOfVideos">
+                <div class="row">
+                    <div class="col-8">
+                        <a [routerLink]="['videodetails']" [queryParams]="{id:video.id}"class="card-text" >{{video.name}}</a>
+                    </div>
+                 </div>
+        </div>
+        </div>
+      </div>
+  </div>
+</div>

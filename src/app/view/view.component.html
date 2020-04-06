@@ -1,0 +1,71 @@
+<app-nav-bar></app-nav-bar>
+<hr>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-2">
+      <h3>Courses</h3>
+      </div>
+      <div class="col-6"></div>
+      
+      <div class="col-2">
+        
+          
+        <input type="text" class="form-control" [(ngModel)]="searchText"  placeholder="search">
+       
+      </div>
+      <button class="btn btn-primary" id="createCourseButton" (click)="navigateToCreateComponent()" ><i class="fa fa-plus" aria-hidden="true"></i>Create New</button>
+    </div>
+    
+ </div>
+ <hr>
+  <!-- <div>
+    <jw-pagination [items]="courses" (changePage)="onPageChange($event)"></jw-pagination>
+  </div> -->
+<div class="container-fluid">
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>S.No</th>
+            <th>Course Name</th>
+            <th>Category</th>
+            <th>Level</th>
+            <th>Mode</th>
+            <th>status</th>
+            <th>Action</th>
+             </tr>
+    </thead>
+    <tbody>
+       <tr *ngFor="let course of courses | filter:searchText | paginate:config,let i=index">
+           <td> {{ (config.currentPage - 1) * config.itemsPerPage + i +1 }}</td>
+       <td> <a [routerLink]="['details']" [queryParams]="{id:course.id}">{{course.name}}</a></td>
+       <td> {{course.categoryObj.name}}</td>
+       <td> {{course.levelObj.name}}</td>
+       <td>  <ng-container *ngIf="course.mode==='p';then publish else draft"></ng-container>
+        <ng-template #publish>Published</ng-template>
+        <ng-template #draft>Draft</ng-template></td>
+       <td>
+       <ng-template *ngIf="course.isActive; then active; else inActive "></ng-template>
+       <ng-template #active><button class="btn btn-success" (click)="checkSwitchToInActive(course.id)">Active</button> </ng-template>
+       <ng-template #inActive><button class="btn btn-danger" (click)="checkSwitchToActive(course.id)"> InActive</button> </ng-template>   
+       </td>
+       <td>
+         <button class="btn btn-primary" (click)="navigatToUpdateComponent(course.id)"  ><i class="fa fa-edit"></i></button>&nbsp;
+         <button class="btn btn-primary" (click)="navigatToCloneComponent(course.id)"><i class="fa fa-clone"></i></button>&nbsp;
+         <button class="btn btn-primary"><i class="fa fa-trash" (click)="delete(course.id)"></i></button>&nbsp;
+        </td>
+       </tr>
+    </tbody>
+  </table> 
+  <footer>
+      <div style="text-align: center;">
+          <pagination-controls (pageChange)="onPageChange($event)"></pagination-controls>
+      </div>
+
+  </footer>
+<!-- 
+  <form >
+    <label>pick image</label>
+    <input type="file" (change)="onFileChanged($event)" #refvar>
+    // <button (click)="a()">clickme</button> 
+</form> -->
