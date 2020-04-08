@@ -144,11 +144,9 @@ viewCategories(){
 onSaveAsNewVersion(){
   this.createForm.value.version++;
   this.createForm.value.mode="p";
-  if(this.currentDoc)
-  this.docId=this.currentDoc.id;
-  else 
-  this.docId=null;
-  this.courseService.update(this.createForm.value,this.id,this.docId,this.videoToBeAddedArray,this.existingData.createdOn).subscribe(
+  if(!this.currentDoc)
+    this.currentDoc=null;
+  this.courseService.update(this.createForm.value,this.id,this.currentDoc,this.videoToBeAddedArray,this.existingData.createdOn).subscribe(
     (res)=>{
       console.log(res);
       this.router.navigateByUrl("/view");
@@ -157,11 +155,9 @@ onSaveAsNewVersion(){
 }
 onSaveAsDraft(){
   this.createForm.value.mode="d";
-  if(this.currentDoc)
-  this.docId=this.currentDoc.id;
-  else 
-  this.docId=null;
-  this.courseService.update(this.createForm.value,this.id,this.docId,this.videoToBeAddedArray,this.existingData.createdOn).subscribe(
+  if(!this.currentDoc)
+    this.currentDoc=null;
+  this.courseService.update(this.createForm.value,this.id,this.currentDoc,this.videoToBeAddedArray,this.existingData.createdOn).subscribe(
     (res)=>{
       console.log(res);
       this.router.navigateByUrl("/view");

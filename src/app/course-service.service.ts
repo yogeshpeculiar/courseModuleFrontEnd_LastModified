@@ -32,9 +32,11 @@ return this.http.get("http://localhost:5656/courses/viewLevelById"+id)
   viewCourseById(id:number){
     return this.http.get("http://localhost:5656/courses/viewCourseById/"+id);
   }
-  update(data:any,id:number,docId:number,videoToBeAddedArray:Array<any>,createdOn:any){
+  update(data:any,id:number,doc:any,videoToBeAddedArray:Array<any>,createdOn:any){
     let body={};
-    if(docId!=null){
+   
+    if(doc!=null){
+      console.log("created time of the document is --->"+doc.createdOn);
       console.log("updateing existing document")
      body={
      id:id,
@@ -55,9 +57,10 @@ return this.http.get("http://localhost:5656/courses/viewLevelById"+id)
         version:data.version,
         createdOn:createdOn,
         docObj: [{
-          "id":docId,
+          "id":doc.id,
           name:data.editorName,
-         content:data.editorContentText
+         content:data.editorContentText,
+         "createdOn":doc.createdOn
         }],
         "courseSubscribedVideo":videoToBeAddedArray,
      levelId:data.level,
@@ -126,6 +129,7 @@ return this.http.get("http://localhost:5656/courses/viewLevelById"+id)
         "docObj": [{
           "name":data.editorName,
          "content": data.editorContentText
+         
       }
   ],
 
